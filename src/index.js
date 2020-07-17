@@ -3,10 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: null,
+        };
+    }
     render() {
+        const header = "h";
         return (
-        <button className="square">
-            {/* TODO */}
+        <button className="square"
+        onClick={() => {
+            if (this.state.value == "X") {
+                console.log("state.value is X");
+            }
+            
+            this.setState({value: "X"}); // When you call setState in a component, React automatically updates the child components inside of it too.
+            
+            // {
+            //     // 邪道な方法（setState(...)の代替）
+            //     this.state.value = "X";
+            //     this.forceUpdate();
+            // }
+        }}
+        >
+            {this.state.value}
         </button>
         );
     }
@@ -14,7 +35,7 @@ class Square extends React.Component {
 
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square />;
+        return <Square value = {i}/>;
     }
 
     render() {
@@ -23,16 +44,19 @@ class Board extends React.Component {
         return (
             <div>
                 <div className="status">{status}</div>
+                
                 <div className="board-row">
                 {this.renderSquare(0)}
                 {this.renderSquare(1)}
                 {this.renderSquare(2)}
                 </div>
+
                 <div className="board-row">
                 {this.renderSquare(3)}
                 {this.renderSquare(4)}
                 {this.renderSquare(5)}
                 </div>
+
                 <div className="board-row">
                 {this.renderSquare(6)}
                 {this.renderSquare(7)}
